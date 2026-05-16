@@ -1,6 +1,16 @@
+ import { useState } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import CustomInput from '../../components/CustomInput';
+import CustomButton from '../../components/CustomButton';
+
+export default function IMCTab() {
+  const [peso, setPeso] = useState('');
+  const [altura, setAltura] = useState('');
+  const [resultado, setResultado] = useState<number | null>(null);
+
   const calcular = () => {
     const p = parseFloat(peso);
-    const a = parseFloat(altura) / 100;  // cm → metros
+    const a = parseFloat(altura) / 100;
     if (p > 0 && a > 0) {
       setResultado(Math.round((p / (a * a)) * 10) / 10);
     }
@@ -16,19 +26,15 @@
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Calculadora de IMC</Text>
-      <CustomInput type='number' placeholder='Peso (kg)'
-        value={peso} onChange={setPeso} />
-      <CustomInput type='number' placeholder='Altura (cm)'
-        value={altura} onChange={setAltura} />
+      <CustomInput type='number' placeholder='Peso (kg)' value={peso} onChange={setPeso} />
+      <CustomInput type='number' placeholder='Altura (cm)' value={altura} onChange={setAltura} />
       <CustomButton title='Calcular' onPress={calcular} />
       {resultado !== null && (() => {
         const cat = getCategoria(resultado);
         return (
           <View style={styles.result}>
             <Text style={styles.imcNum}>{resultado}</Text>
-            <Text style={[styles.categoria, { color: cat.color }]}>
-              {cat.label}
-            </Text>
+            <Text style={[styles.categoria, { color: cat.color }]}>{cat.label}</Text>
           </View>
         );
       })()}
