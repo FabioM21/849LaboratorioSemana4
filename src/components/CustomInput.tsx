@@ -23,11 +23,11 @@ export default function CustomInput({ type = 'text', placeholder, value, onChang
     type === 'email' ? 'email-address' :
     type === 'number' ? 'phone-pad' : 'default';
 
-  const getError = () => {
-    if (type === 'email' && !value.includes('@')) return 'Correo invalido';
-    if (type === 'password' && value.length < 4) return 'Contrasena muy corta';
-    if (type === 'number' && value.length < 8) return 'Numero invalido';
-  };
+ const getError = () => {
+  if (type === 'email' && value.length > 0 && !value.includes('@')) return 'Correo invalido';
+  if (type === 'password' && value.length > 0 && value.length < 4) return 'Contraseña muy corta';
+  if (type === 'number' && value.length > 0 && isNaN(parseFloat(value))) return 'Numero invalido';
+};
   const error = getError();
 
   return (
@@ -50,9 +50,9 @@ export default function CustomInput({ type = 'text', placeholder, value, onChang
 const styles = StyleSheet.create({
   wrapper: { marginBottom: 12 },
   container: { flexDirection: 'row', alignItems: 'center', borderWidth: 1,
-               borderColor: '#ccc', borderRadius: 10, backgroundColor: '#f0f0f0',
-               paddingHorizontal: 12, paddingVertical: 4 },
-  input: { flex: 1, paddingVertical: 10, paddingHorizontal: 8 },
+  borderColor: '#444', borderRadius: 10, backgroundColor: '#1e1e1e',
+   paddingHorizontal: 12, paddingVertical: 4 },
+  input: { flex: 1, paddingVertical: 10, paddingHorizontal: 8, color: '#fff' },
   errorBorder: { borderColor: 'red' },
   errorText: { color: 'red', fontSize: 12, marginTop: 2 },
 });

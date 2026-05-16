@@ -22,9 +22,9 @@ const getStyles = (variant: 'primary' | 'secondary' | 'danger') =>
       padding: 14,
       marginVertical: 8,
       alignItems: 'center',
-      backgroundColor:
-        variant === 'primary' ? '#5f0650' :
-        variant === 'secondary' ? '#888888' : '#c0392b',
+     backgroundColor:
+  variant === 'primary' ? '#1a1a1a' :
+  variant === 'secondary' ? '#444444' : '#8b0000',
     },
     text: { color: '#fff', fontWeight: 'bold', fontSize: 16 },
   });

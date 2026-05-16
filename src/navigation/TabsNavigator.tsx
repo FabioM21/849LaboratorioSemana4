@@ -16,9 +16,27 @@ type Props = NativeStackScreenProps<RootStackParamList, 'MainTabs'>;
 
 const Tab = createBottomTabNavigator<TabsParamList>();
 
+function getIcon(name: string, color: string, size: number) {
+  if (name === 'Inicio') return <Ionicons name='home' size={size} color={color} />;
+  if (name === 'IMC') return <Ionicons name='fitness' size={size} color={color} />;
+  return <Ionicons name='person' size={size} color={color} />;
+}
+
 export default function TabsNavigator({ route }: Props) {
   const { email } = route.params;
 
   return (
-    <Tab.Navigator screenOptions={({ route: r }) => ({
-      tabBarIco
+    <Tab.Navigator
+      screenOptions={({ route: r }) => ({
+        tabBarIcon: ({ color, size }) => getIcon(r.name, color, size),
+        tabBarActiveTintColor: '#5f0650',
+        tabBarInactiveTintColor: '#888',
+        headerShown: false,
+      })}
+    >
+      <Tab.Screen name='Inicio' component={HomeTab} initialParams={{ email }} />
+      <Tab.Screen name='IMC' component={IMCTab} />
+      <Tab.Screen name='Perfil' component={ProfileTab} initialParams={{ email }} />
+    </Tab.Navigator>
+  );
+}
